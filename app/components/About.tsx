@@ -35,11 +35,11 @@ export default function About() {
             <div className="absolute -bottom-4 -right-4 w-3/4 h-3/4 border border-blood/40 rounded-sm -z-10" />
             <div className="absolute -top-4 -left-4 w-24 h-24 border-t border-l border-crimson/60" />
 
-            {/* Quote overlay */}
+            {/* Quote overlay - FIXED: Escaped double quotes */}
             <div className="absolute bottom-8 left-0 right-0 px-6">
               <blockquote className="font-display text-xl lg:text-2xl text-white leading-tight">
-                "THE STREETS MADE ME,{" "}
-                <span className="red-glow text-crimson">THE MUSIC FREED ME.</span>"
+                &ldquo;THE STREETS MADE ME,{" "}
+                <span className="red-glow text-crimson">THE MUSIC FREED ME.&rdquo;</span>
               </blockquote>
             </div>
           </div>
@@ -58,7 +58,7 @@ export default function About() {
 
             <div className="space-y-4 font-barlow text-gray-400 text-lg leading-relaxed">
               <p>
-                Born and raised in Negombo, Sri Lanka, Lil Rome Praba didn't find rap — rap found him.
+                Born and raised in Negombo, Sri Lanka, Lil Rome Praba didn&apos;t find rap — rap found him.
                 With a genre-bending sound that fuses hip-hop, melodic rap, and global influences,
                 he crafts music that reflects his journey, identity, and creative ambition.
               </p>
@@ -70,7 +70,7 @@ export default function About() {
               </p>
               <p>
                 <span className="text-crimson">Personal. Powerful. Unapologetic.</span>{" "}
-                Every track is a receipt from the life he's lived and the artist he's becoming.
+                Every track is a receipt from the life he&apos;s lived and the artist he&apos;s becoming.
               </p>
             </div>
 

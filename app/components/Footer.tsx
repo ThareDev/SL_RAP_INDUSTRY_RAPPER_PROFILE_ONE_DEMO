@@ -1,10 +1,10 @@
 export default function Footer() {
   const socials = [
-    { name: "Instagram", handle: "@blazeofficial" },
-    { name: "Spotify", handle: "Blaze" },
-    { name: "YouTube", handle: "BlazeTV" },
-    { name: "TikTok", handle: "@blazerap" },
-    { name: "Twitter / X", handle: "@blaze" },
+    { name: "Instagram", handle: "@lilromepraba" },
+    { name: "Spotify", handle: "Lil Rome Praba" },
+    { name: "YouTube", handle: "LilRomePrabaTV" },
+    { name: "TikTok", handle: "@lilromepraba" },
+    { name: "Twitter / X", handle: "@lilromepraba" },
   ];
 
   return (
@@ -20,7 +20,7 @@ export default function Footer() {
           <p className="font-barlow text-gray-500 text-lg uppercase tracking-wide max-w-lg mx-auto mb-10">
             For booking, features, brand deals, and press inquiries
           </p>
-          <a href="mailto:booking@blazeofficial.com" className="btn-primary inline-block px-12 py-4 text-sm font-bold">
+          <a href="mailto:booking@lilromepraba.com" className="btn-primary inline-block px-12 py-4 text-sm font-bold">
             Get In Touch
           </a>
         </div>
@@ -35,7 +35,7 @@ export default function Footer() {
               PRABA<span className="text-crimson">.</span>
             </div>
             <p className="font-barlow text-gray-600 text-sm uppercase tracking-wide max-w-xs">
-              Sri Lanka's hardest. Every bar a statement.
+              Sri Lanka&apos;s hardest. Every bar a statement.
             </p>
           </div>
 

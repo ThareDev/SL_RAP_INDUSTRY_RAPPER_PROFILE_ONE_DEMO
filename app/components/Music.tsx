@@ -28,51 +28,49 @@ function getYouTubeID(url: string): string | null {
   return match ? match[1] : null;
 }
 
-declare global {
-  namespace YT {
-    interface Player {
-      destroy(): void;
-      playVideo(): void;
-      pauseVideo(): void;
-      seekTo(seconds: number, allowSeekAhead: boolean): void;
-      getDuration(): number;
-      getCurrentTime(): number;
-    }
-
-    interface OnStateChangeEvent {
-      data: number;
-    }
-
-    namespace PlayerState {
-      const PLAYING: number;
-      const ENDED: number;
-    }
-
-    class Player {
-      constructor(
-        element: HTMLElement | string,
-        options: {
-          height: string;
-          width: string;
-          videoId: string;
-          playerVars: Record<string, number>;
-          events: Record<string, (event: OnStateChangeEvent) => void>;
-        }
-      );
-      destroy(): void;
-      playVideo(): void;
-      pauseVideo(): void;
-      seekTo(seconds: number, allowSeekAhead: boolean): void;
-      getDuration(): number;
-      getCurrentTime(): number;
-    }
-  }
-
-  interface Window {
-    YT: typeof YT;
-    onYouTubeIframeAPIReady: () => void;
-  }
+// FIXED: Using interface instead of namespace for better TypeScript practices
+interface YTPlayer {
+  destroy(): void;
+  playVideo(): void;
+  pauseVideo(): void;
+  seekTo(seconds: number, allowSeekAhead: boolean): void;
+  getDuration(): number;
+  getCurrentTime(): number;
 }
+
+interface YTOnStateChangeEvent {
+  data: number;
+}
+
+interface YTPlayerConstructor {
+  new (
+    element: HTMLElement | string,
+    options: {
+      height: string;
+      width: string;
+      videoId: string;
+      playerVars: Record<string, number>;
+      events: Record<string, (event: YTOnStateChangeEvent) => void>;
+    }
+  ): YTPlayer;
+}
+
+// FIXED: Proper interface extension without unsafe declaration merging
+interface YTAPI {
+  Player: YTPlayerConstructor;
+  PlayerState: {
+    PLAYING: number;
+    ENDED: number;
+  };
+}
+
+// FIXED: Proper window interface extension
+interface CustomWindow extends Window {
+  YT?: YTAPI;
+  onYouTubeIframeAPIReady?: () => void;
+}
+
+declare const window: CustomWindow;
 
 export default function Music() {
   const [trackList, setTrackList] = useState<Track[]>(initialTracks);
@@ -83,7 +81,7 @@ export default function Music() {
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState("0:00");
 
-  const playerRef = useRef<YT.Player | null>(null);
+  const playerRef = useRef<YTPlayer | null>(null);
   const playerContainerRef = useRef<HTMLDivElement>(null);
   const progressInterval = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 
@@ -114,15 +112,15 @@ export default function Music() {
     setIsPlaying(true);
 
     const init = () => {
-      if (!playerContainerRef.current) return;
+      if (!playerContainerRef.current || !window.YT) return;
       playerRef.current = new window.YT.Player(playerContainerRef.current, {
         height: "0",
         width: "0",
         videoId,
         playerVars: { autoplay: 1, controls: 0 },
         events: {
-          onStateChange: (e: YT.OnStateChangeEvent) => {
-            if (e.data === window.YT.PlayerState.PLAYING) {
+          onStateChange: (e: YTOnStateChangeEvent) => {
+            if (window.YT && e.data === window.YT.PlayerState.PLAYING) {
               clearInterval(progressInterval.current);
               progressInterval.current = setInterval(() => {
                 const dur = playerRef.current?.getDuration() ?? 0;
@@ -133,7 +131,7 @@ export default function Music() {
                 setCurrentTime(`${m}:${s}`);
               }, 500);
             }
-            if (e.data === window.YT.PlayerState.ENDED) {
+            if (window.YT && e.data === window.YT.PlayerState.ENDED) {
               clearInterval(progressInterval.current);
               progressInterval.current = undefined;
               const next = index + 1;
