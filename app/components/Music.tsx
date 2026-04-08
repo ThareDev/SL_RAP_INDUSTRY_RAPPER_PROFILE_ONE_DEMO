@@ -1,5 +1,9 @@
 "use client";   
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
+import album1 from '@/public/album1.jpg';
+import album2 from '@/public/album2.jpg';
+import album3 from '@/public/album3.jpg';
 
 interface Track {
   num: string;
@@ -186,6 +190,13 @@ export default function Music() {
   };
 
   const currentTrack = currentIndex !== null ? trackList[currentIndex] : null;
+
+  // Album data with images
+  const albums = [
+    { title: "Streets Never Lie", year: "2025", tracks: 12, image: album1 },
+    { title: "Dark Hours", year: "2023", tracks: 10, image: album2 },
+    { title: "Raw Debut", year: "2021", tracks: 8, image: album3 },
+  ];
 
   return (
     <section id="music" className="bg-dark-1 py-24 lg:py-32 relative overflow-hidden">
@@ -383,34 +394,46 @@ export default function Music() {
           ))}
         </div>
 
-        {/* Albums Grid */}
+        {/* Albums Grid with Images */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
-          {[
-            { title: "Streets Never Lie", year: "2025", tracks: 12 },
-            { title: "Dark Hours", year: "2023", tracks: 10 },
-            { title: "Raw Debut", year: "2021", tracks: 8 },
-          ].map((album) => (
+          {albums.map((album) => (
             <div key={album.title} className="group relative aspect-square overflow-hidden cursor-pointer">
-              <div className="absolute inset-0 bg-gradient-to-br from-blood/40 to-dark-3 flex items-end p-5 group-hover:from-blood/60 transition-all duration-400">
+              {/* Album Image */}
+              <Image
+                src={album.image}
+                alt={album.title}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              
+              {/* Dark Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/70 group-hover:from-black/50 group-hover:to-black/60 transition-all duration-400" />
+              
+              {/* Content */}
+              <div className="absolute inset-0 flex items-end p-5">
                 <div>
-                  <div className="font-oswald text-xs tracking-[0.2em] text-gray-400 uppercase mb-1">
+                  <div className="font-oswald text-xs tracking-[0.2em] text-gray-300 uppercase mb-1">
                     {album.year} · {album.tracks} Tracks
                   </div>
-                  <div className="font-display text-xl lg:text-3xl text-white uppercase">
+                  <div className="font-display text-xl lg:text-3xl text-white uppercase leading-tight">
                     {album.title}
                   </div>
                 </div>
               </div>
+              
+              {/* Grid Pattern Overlay */}
               <div
-                className="absolute inset-0 opacity-10"
+                className="absolute inset-0 opacity-10 pointer-events-none"
                 style={{
                   backgroundImage:
                     "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
                   backgroundSize: "30px 30px",
                 }}
               />
-              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="w-10 h-10 bg-crimson rounded-full flex items-center justify-center text-white text-sm">
+              
+              {/* Play Button Overlay */}
+              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="w-10 h-10 bg-crimson rounded-full flex items-center justify-center text-white text-sm transform transition-transform group-hover:scale-110">
                   ▶
                 </div>
               </div>
