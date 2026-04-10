@@ -417,7 +417,6 @@ export default function Hero(): JSX.Element {
         </motion.div>
       </motion.div>
 
-      {/* ── top red bar ── */}
       <motion.div
         className="absolute top-0 left-0 right-0 h-px z-30 pointer-events-none"
         style={{ background: "linear-gradient(to right, transparent, #cc0000, transparent)" }}
