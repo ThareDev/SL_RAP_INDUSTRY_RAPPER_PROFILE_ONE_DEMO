@@ -8,9 +8,9 @@ export default function Footer() {
 
   const socials = [
     { name: "Instagram", handle: "@lilromepraba", url: "https://www.instagram.com/dushan_prabashana_?igsh=aW42ZTU3aGtydXZ5&utm_source=qr" },
-    { name: "Spotify", handle: "Lil Rome Praba", url: "https://open.spotify.com/artist/LilRomePraba" },
+    { name: "Spotify", handle: "Lil Rome Praba", url: "https://open.spotify.com/artist/2cu0S0ZpulMgq8xMJTBVDx?si=US-ErMjRQVW1ZrclX8Z2GA" },
     { name: "YouTube", handle: "LilRomePrabaTV", url: "https://youtube.com/@lilromepraba?si=9_7l_imQMATBaJRN" },
-    { name: "TikTok", handle: "@lilromepraba", url: "https://www.tiktok.com/@lilromepraba" },
+    { name: "TikTok", handle: "@lilromepraba", url: "https://www.tiktok.com/@_lil_rome_praba" },
     { name: "Facebook", handle: "@lilromepraba", url: "https://www.facebook.com/share/18cJ64Kr8G/?mibextid=wwXIfr" },
   ];
 

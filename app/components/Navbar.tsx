@@ -12,7 +12,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  const links = ["Music", "Shows", "Videos", "Blog", "Merch", "Contact"];
+  const links = ["Music", "Shows", "Blog", "Contact"];
 
   return (
     <nav
