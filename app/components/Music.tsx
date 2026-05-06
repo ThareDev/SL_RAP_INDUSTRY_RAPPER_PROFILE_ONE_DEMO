@@ -18,10 +18,6 @@ interface Track {
 const initialTracks: Track[] = [
   { num: "01", title: "Kachal Kasi", feat: "", album: "Streets Never Lie", duration: "3:47", hot: true, youtube: "https://youtu.be/QKY9jEIXfVQ?si=v43De7iim_NY5imN" },
   { num: "02", title: "AHE KATU ENUNA (LILROME)", feat: "Ft PRABA", album: "LIL ROME", duration: "2:58", hot: false, youtube: "https://youtu.be/GOXDQ94ECJQ?si=x1OZZ6xVJBskYpQX" },
-  { num: "03", title: "Midnight Run", feat: "", album: "Dark Hours", duration: "4:12", hot: false, youtube: "" },
-  { num: "04", title: "Real Ones Only", feat: "feat. Young Dice", album: "Streets Never Lie", duration: "3:33", hot: true, youtube: "" },
-  { num: "05", title: "Crown Me", feat: "", album: "Dark Hours", duration: "3:21", hot: false, youtube: "" },
-  { num: "06", title: "Last Man Standing", feat: "feat. MC Crypt", album: "Debut", duration: "4:55", hot: false, youtube: "" },
 ];
 
 function getYouTubeID(url: string): string | null {

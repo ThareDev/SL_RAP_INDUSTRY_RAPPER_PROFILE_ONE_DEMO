@@ -134,11 +134,9 @@ const SPRING = { stiffness: 60, damping: 20 };
 export default function Hero(): JSX.Element {
   const { x: px, y: py } = usePointer();
 
-  /* 3-D tilt for artist image card */
   const rx = useSpring(useTransform(py, [-1, 1], [8, -8]),   SPRING);
   const ry = useSpring(useTransform(px, [-1, 1], [-10, 10]), SPRING);
 
-  /* Parallax layers */
   const imgX = useSpring(useTransform(px, [-1, 1], [-18, 18]), SPRING);
   const imgY = useSpring(useTransform(py, [-1, 1], [-10, 10]), SPRING);
   const bgX  = useSpring(useTransform(px, [-1, 1], [12, -12]), SPRING);
