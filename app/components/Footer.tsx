@@ -58,7 +58,7 @@ export default function Footer() {
             <div>
               <div className="font-oswald text-xs tracking-[0.25em] uppercase text-gray-700 mb-5">Navigate</div>
               <div className="grid grid-cols-2 gap-y-3">
-                {["Music", "Shows", "Blog", "Contact"].map((link) => (
+                {["Music", "Shows","About", "Blog", "Contact"].map((link) => (
                   <a
                     key={link}
                     href={`#${link.toLowerCase()}`}

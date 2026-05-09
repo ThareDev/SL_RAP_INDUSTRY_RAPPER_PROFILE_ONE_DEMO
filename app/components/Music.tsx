@@ -1,4 +1,4 @@
-"use client";   
+"use client";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import album1 from '@/public/album1.jpg';
@@ -16,8 +16,13 @@ interface Track {
 }
 
 const initialTracks: Track[] = [
-  { num: "01", title: "Kachal Kasi", feat: "", album: "Streets Never Lie", duration: "3:47", hot: true, youtube: "https://youtu.be/QKY9jEIXfVQ?si=v43De7iim_NY5imN" },
-  { num: "02", title: "AHE KATU ENUNA (LILROME)", feat: "Ft PRABA", album: "LIL ROME", duration: "2:58", hot: false, youtube: "https://youtu.be/GOXDQ94ECJQ?si=x1OZZ6xVJBskYpQX" },
+  { num: "01", title: "Kachal Kasi", feat: "ft Smokio", album: "LIL ROME", duration: "4:51", hot: true, youtube: "https://youtu.be/QKY9jEIXfVQ?si=v43De7iim_NY5imN" },
+  { num: "02", title: "AHE KATU ENUNA", feat: "Ft PRABA", album: "LIL ROME", duration: "4:08", hot: false, youtube: "https://youtu.be/GOXDQ94ECJQ?si=x1OZZ6xVJBskYpQX" },
+  { num: "03", title: "දහම (Dahama)", feat: "Ft PRABA", album: "LIL ROME", duration: "3:40", hot: false, youtube: "https://youtu.be/-d8b6E5JLi8?si=Es086X9MrMLna-Rw" },
+  { num: "04", title: "දේවත්වෙන් (Dewathwen)", feat: "Ft PRABA", album: "LIL ROME", duration: "5:00", hot: false, youtube: "https://youtu.be/v-5y_AxVd3M?si=DBMiQIq8mND-3cbB" },
+  { num: "05", title: "නාය යයි (Naaya yai)", feat: "Ft PRABA", album: "LIL ROME", duration: "6:08", hot: false, youtube: "https://youtu.be/uBu_OGfn-AE?si=t1Bq6G71Xd03rfkB" },
+  { num: "06", title: "Na Hook", feat: "Costa x Lil Rome Praba", album: "LIL ROME", duration: "2:50", hot: false, youtube: "https://youtu.be/aFwBgKIbdvc?si=VvwaM5xUyZx0NXEx" },
+  { num: "07", title: "Ahasa Gugura (අහස ගුගුරා)", feat: "Ft Praba", album: "LIL ROME", duration: "3:35", hot: false, youtube: "https://youtu.be/UGRcqlCMQ00?si=CQ8iIhGbebHmQs-i" },
 ];
 
 function getYouTubeID(url: string): string | null {
@@ -43,7 +48,7 @@ interface YTOnStateChangeEvent {
 }
 
 interface YTPlayerConstructor {
-  new (
+  new(
     element: HTMLElement | string,
     options: {
       height: string;
@@ -95,7 +100,7 @@ export default function Music() {
 
   const destroyPlayer = () => {
     if (playerRef.current) {
-      try { playerRef.current.destroy(); } catch {}
+      try { playerRef.current.destroy(); } catch { }
       playerRef.current = null;
     }
     clearInterval(progressInterval.current);
@@ -265,9 +270,8 @@ export default function Music() {
           {trackList.map((track, i) => (
             <div key={track.num}>
               <div
-                className={`track-row group flex items-center gap-4 lg:gap-8 py-4 px-4 border-b border-white/5 rounded-sm ${
-                  currentIndex === i ? "bg-white/5" : ""
-                }`}
+                className={`track-row group flex items-center gap-4 lg:gap-8 py-4 px-4 border-b border-white/5 rounded-sm ${currentIndex === i ? "bg-white/5" : ""
+                  }`}
               >
                 {/* Number / play */}
                 <div
@@ -275,16 +279,14 @@ export default function Music() {
                   onClick={() => loadAndPlay(i)}
                 >
                   <span
-                    className={`track-num font-oswald text-sm transition-opacity ${
-                      currentIndex === i ? "opacity-0" : "text-gray-600 group-hover:opacity-0"
-                    }`}
+                    className={`track-num font-oswald text-sm transition-opacity ${currentIndex === i ? "opacity-0" : "text-gray-600 group-hover:opacity-0"
+                      }`}
                   >
                     {track.num}
                   </span>
                   <span
-                    className={`track-play absolute inset-0 flex items-center justify-center text-crimson text-sm ${
-                      currentIndex === i ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-                    }`}
+                    className={`track-play absolute inset-0 flex items-center justify-center text-crimson text-sm ${currentIndex === i ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                      }`}
                   >
                     {currentIndex === i && isPlaying ? "⏸" : "▶"}
                   </span>
@@ -295,11 +297,10 @@ export default function Music() {
                   {Array.from({ length: 16 }).map((_, j) => (
                     <div
                       key={j}
-                      className={`w-0.5 rounded-full transition-colors ${
-                        currentIndex === i && isPlaying
-                          ? "bg-crimson/60"
-                          : "bg-white/10 group-hover:bg-crimson/30"
-                      }`}
+                      className={`w-0.5 rounded-full transition-colors ${currentIndex === i && isPlaying
+                        ? "bg-crimson/60"
+                        : "bg-white/10 group-hover:bg-crimson/30"
+                        }`}
                       style={{ height: `${Math.random() * 70 + 30}%` }}
                     />
                   ))}
@@ -309,9 +310,8 @@ export default function Music() {
                 <div className="flex-1 min-w-0 cursor-pointer" onClick={() => loadAndPlay(i)}>
                   <div className="flex items-center gap-3">
                     <span
-                      className={`font-oswald text-base lg:text-lg uppercase tracking-wide truncate ${
-                        currentIndex === i ? "text-crimson" : "text-white"
-                      }`}
+                      className={`font-oswald text-base lg:text-lg uppercase tracking-wide truncate ${currentIndex === i ? "text-crimson" : "text-white"
+                        }`}
                     >
                       {track.title}
                     </span>
@@ -401,23 +401,10 @@ export default function Music() {
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              
+
               {/* Dark Overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/70 group-hover:from-black/50 group-hover:to-black/60 transition-all duration-400" />
-              
-              {/* Content */}
-              <div className="absolute inset-0 flex items-end p-5">
-                <div>
-                  <div className="font-oswald text-xs tracking-[0.2em] text-gray-300 uppercase mb-1">
-                    {album.year} · {album.tracks} Tracks
-                  </div>
-                  <div className="font-display text-xl lg:text-3xl text-white uppercase leading-tight">
-                    {album.title}
-                  </div>
-                </div>
-              </div>
-              
-              {/* Grid Pattern Overlay */}
+
               <div
                 className="absolute inset-0 opacity-10 pointer-events-none"
                 style={{
@@ -426,13 +413,6 @@ export default function Music() {
                   backgroundSize: "30px 30px",
                 }}
               />
-              
-              {/* Play Button Overlay */}
-              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="w-10 h-10 bg-crimson rounded-full flex items-center justify-center text-white text-sm transform transition-transform group-hover:scale-110">
-                  ▶
-                </div>
-              </div>
             </div>
           ))}
         </div>
