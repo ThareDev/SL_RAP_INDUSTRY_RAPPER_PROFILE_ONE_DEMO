@@ -305,7 +305,7 @@ export default function Hero(): JSX.Element {
         style={{ x: imgX, y: imgY }}
       >
         <motion.div
-          className="relative w-[75%] lg:w-[50%] h-full translate-x-[15%] lg:translate-x-0"
+          className="relative w-[60%] lg:w-[50%] h-full"
           style={{
             rotateX: rx,
             rotateY: ry,
@@ -318,7 +318,7 @@ export default function Hero(): JSX.Element {
             className="absolute inset-0 z-10"
             style={{
               background:
-                "linear-gradient(to right, black 0%, black 20%, rgba(0,0,0,0.5) 45%, transparent 70%)",
+                "linear-gradient(to right, black 0%, rgba(0,0,0,0.4) 30%, transparent 60%)",
             }}
           />
           {/* bottom fade — mobile */}
