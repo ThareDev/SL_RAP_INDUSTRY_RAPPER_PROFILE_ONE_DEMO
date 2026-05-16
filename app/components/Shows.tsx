@@ -1,11 +1,14 @@
 const shows = [
-  { date: "APR 18", day: "FRI", city: "Colombo", venue: "Nelum Pokuna Amphitheatre", country: "Sri Lanka", status: "On Sale", sold: false },
-  { date: "APR 25", day: "FRI", city: "Dubai", venue: "Coca-Cola Arena", country: "UAE", status: "On Sale", sold: false },
-  { date: "MAY 03", day: "SAT", city: "London", venue: "O2 Forum Kentish Town", country: "UK", status: "Few Left", sold: false },
-  { date: "MAY 10", day: "SAT", city: "Berlin", venue: "Tempodrom", country: "Germany", status: "Sold Out", sold: true },
-  { date: "MAY 17", day: "SAT", city: "Toronto", venue: "Rebel Entertainment", country: "Canada", status: "On Sale", sold: false },
-  { date: "MAY 24", day: "SAT", city: "New York", venue: "Irving Plaza", country: "USA", status: "On Sale", sold: false },
-  { date: "JUN 07", day: "SAT", city: "Los Angeles", venue: "The Novo", country: "USA", status: "Coming Soon", sold: false },
+  {
+    date: "Soon",
+    day: "Soon",
+    city: "Anuradhapura",
+    venue: "Surapura Open Air Theatre",
+    country: "Sri Lanka",
+    status: "On Sale",
+    sold: false,
+    ticketUrl: "https://events.ramessesreezy.com/events/2/ICONOGRAPHY-Angels-Grand-Tour",
+  },
 ];
 
 export default function Shows() {
@@ -77,7 +80,9 @@ export default function Shows() {
                   </span>
                   {!show.sold && show.status !== "Coming Soon" ? (
                     <a
-                      href="#"
+                      href={show.ticketUrl || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="btn-primary px-4 lg:px-6 py-2 text-xs font-bold flex-shrink-0"
                     >
                       Tickets

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import artist from "@/public/artist.jpg";
+import artist from "@/public/heroo.jpeg";
 import { useEffect, useRef, useState, ReactNode, JSX } from "react";
 import {
   motion,
