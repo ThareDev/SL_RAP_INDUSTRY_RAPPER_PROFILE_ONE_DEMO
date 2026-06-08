@@ -1,13 +1,24 @@
+
 const shows = [
   {
-    date: "Soon",
-    day: "Soon",
-    city: "Anuradhapura",
-    venue: "Surapura Open Air Theatre",
+    date: "2026",
+    day: "June 13",
+    event: "කැරැල්ල",
+    city: "Galle",
+    venue: "Samanala Grounds",
     country: "Sri Lanka",
     status: "On Sale",
     sold: false,
-    ticketUrl: "https://events.ramessesreezy.com/events/2/ICONOGRAPHY-Angels-Grand-Tour",
+    ticketUrl: "https://keralla.kodikaraentertainments.com/?fbclid=IwZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPMjc1MjU0NjkyNTk4Mjc5AAEeR2EDGVpNBL3zuvjHJvJ93dCqldKjWlipHKuDKzNtavRx0pE_09Pv8b5Ddcc_aem_rWTPu6_RWu0SKcgMAFsMLw",
+  },
+  {
+    date: "2026",
+    day: "July 05",
+    event: "Megha Naadha 360",
+    country: "Japan",
+    status: "On Sale",
+    sold: false,
+    ticketUrl: "https://docs.google.com/forms/d/e/1FAIpQLSe5Gy5vDwE1b0lNoh-dkCuyZZ3RdQGM9VOYbBECXaJ53KXnzQ/viewform",
   },
 ];
 
@@ -54,6 +65,9 @@ export default function Shows() {
 
                 {/* City / Venue */}
                 <div className="flex-1 min-w-0">
+                  <div className="font-oswald text-xs tracking-[0.25em] uppercase text-crimson mb-1">
+                    {show.event}
+                  </div>
                   <div className="flex items-center gap-3 flex-wrap">
                     <span className="font-display text-lg lg:text-2xl text-white uppercase">{show.city}</span>
                     <span className="font-oswald text-xs tracking-widest text-gray-600 uppercase">{show.country}</span>
@@ -66,15 +80,14 @@ export default function Shows() {
                 {/* Status & CTA */}
                 <div className="flex items-center gap-4 flex-shrink-0">
                   <span
-                    className={`font-oswald text-xs tracking-[0.2em] uppercase hidden sm:block ${
-                      show.sold
+                    className={`font-oswald text-xs tracking-[0.2em] uppercase hidden sm:block ${show.sold
                         ? "text-gray-600"
                         : show.status === "Few Left"
-                        ? "text-gold"
-                        : show.status === "Coming Soon"
-                        ? "text-gray-500"
-                        : "text-green-500"
-                    }`}
+                          ? "text-gold"
+                          : show.status === "Coming Soon"
+                            ? "text-gray-500"
+                            : "text-green-500"
+                      }`}
                   >
                     {show.status}
                   </span>
