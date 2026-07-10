@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import bannerImg from "@/public/banners/banner.jpeg";
+import bannerImg from "@/public/banners/banner-beheth.jpeg";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 
@@ -26,7 +26,7 @@ function FireworksCanvas({ active }: { active: boolean }) {
   const launchRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const originIdx = useRef<number>(0);
 
-  // Crimson / ember / ash palette matching the Karalilla poster
+  // Crimson / ember / ash palette matching the Beheth poster
   const COLORS = [
     "#cc0000", "#ff2200", "#ff4400",
     "#ff8800", "#ffaa00", "#ffcc44",
@@ -381,7 +381,7 @@ export default function EventBannerPopup() {
 
                 <Image
                   src={bannerImg}
-                  alt="කැරැල්ල — දකුණු රටේ Hip-Hop ආගමනය"
+                  alt="Beheth — Another Entrance Opens Today"
                   fill
                   className="object-cover object-top"
                   priority
@@ -389,7 +389,7 @@ export default function EventBannerPopup() {
                   style={{ opacity: imgLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
                 />
 
-                {/* COMING SOON badge */}
+                {/* ON SALE badge */}
                 <div
                   className="live-dot absolute top-3 left-3 flex items-center gap-2 px-3 py-1 z-30"
                   style={{
@@ -402,7 +402,7 @@ export default function EventBannerPopup() {
                 >
                   <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#cc0000", display: "inline-block" }} />
                   <span style={{ fontFamily: "'Oswald', Impact, sans-serif", fontSize: 9, letterSpacing: "0.28em", color: "#cc0000", textTransform: "uppercase" }}>
-                    June 2026
+                    On Sale — Aug 08, 2026
                   </span>
                 </div>
 
@@ -422,14 +422,14 @@ export default function EventBannerPopup() {
                 transition={{ delay: 0.3 }}
               >
                 <motion.a
-                  href="https://keralla.kodikaraentertainments.com/?fbclid=IwZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPMjc1MjU0NjkyNTk4Mjc5AAEeR2EDGVpNBL3zuvjHJvJ93dCqldKjWlipHKuDKzNtavRx0pE_09Pv8b5Ddcc_aem_rWTPu6_RWu0SKcgMAFsMLw"
+                  href="https://tickets.behethconcert.com/"
                   className="popup-ticket-btn"
                   onClick={close}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                 >
                   <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", display: "inline-block", flexShrink: 0 }} />
-                  Get Tickets — Samanala Ground, Galle
+                  Get Tickets — Port City Colombo
                   <span>→</span>
                 </motion.a>
 
@@ -453,7 +453,7 @@ export default function EventBannerPopup() {
                 <div className="ticker-inner">
                   {Array.from({ length: 8 }, (_, i) => (
                     <span key={i} style={{ fontFamily: "Impact, Oswald, sans-serif", fontSize: 9, letterSpacing: "0.28em", color: "#fff", textTransform: "uppercase", marginRight: 28 }}>
-                      කැරැල්ල &nbsp;🔥&nbsp; JUNE 2026 &nbsp;★&nbsp; SAMANALA GROUND &nbsp;★&nbsp; GALLE &nbsp;★&nbsp; දකුණු රටේ HIP-HOP ආගමනය &nbsp;★&nbsp;
+                      BEHETH &nbsp;🔥&nbsp; AUGUST 08, 2026 &nbsp;★&nbsp; PORT CITY COLOMBO &nbsp;★&nbsp; COLOMBO, SRI LANKA &nbsp;★&nbsp; TICKETS ON SALE NOW &nbsp;★&nbsp;
                     </span>
                   ))}
                 </div>

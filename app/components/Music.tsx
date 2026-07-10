@@ -16,13 +16,14 @@ interface Track {
 }
 
 const initialTracks: Track[] = [
-  { num: "01", title: "Kachal Kasi", feat: "ft Smokio", album: "LIL ROME", duration: "4:51", hot: true, youtube: "https://youtu.be/QKY9jEIXfVQ?si=v43De7iim_NY5imN" },
-  { num: "02", title: "AHE KATU ENUNA", feat: "Ft PRABA", album: "LIL ROME", duration: "4:08", hot: false, youtube: "https://youtu.be/GOXDQ94ECJQ?si=x1OZZ6xVJBskYpQX" },
-  { num: "03", title: "දහම (Dahama)", feat: "Ft PRABA", album: "LIL ROME", duration: "3:40", hot: false, youtube: "https://youtu.be/-d8b6E5JLi8?si=Es086X9MrMLna-Rw" },
-  { num: "04", title: "දේවත්වෙන් (Dewathwen)", feat: "Ft PRABA", album: "LIL ROME", duration: "5:00", hot: false, youtube: "https://youtu.be/v-5y_AxVd3M?si=DBMiQIq8mND-3cbB" },
-  { num: "05", title: "නාය යයි (Naaya yai)", feat: "Ft PRABA", album: "LIL ROME", duration: "6:08", hot: false, youtube: "https://youtu.be/uBu_OGfn-AE?si=t1Bq6G71Xd03rfkB" },
-  { num: "06", title: "Na Hook", feat: "Costa x Lil Rome Praba", album: "LIL ROME", duration: "2:50", hot: false, youtube: "https://youtu.be/aFwBgKIbdvc?si=VvwaM5xUyZx0NXEx" },
-  { num: "07", title: "Ahasa Gugura (අහස ගුගුරා)", feat: "Ft Praba", album: "LIL ROME", duration: "3:35", hot: false, youtube: "https://youtu.be/UGRcqlCMQ00?si=CQ8iIhGbebHmQs-i" },
+  { num: "01", title: "TIKX KOODA", feat: "Hood Superstars ft Lil Rome Praba", album: "LIL ROME", duration: "2:35", hot: true, youtube: "https://www.youtube.com/watch?v=j1Cq6725RUI&list=RDj1Cq6725RUI&start_radio=1" },
+  { num: "02", title: "Kachal Kasi", feat: "ft Smokio", album: "LIL ROME", duration: "4:51", hot: false, youtube: "https://youtu.be/QKY9jEIXfVQ?si=v43De7iim_NY5imN" },
+  { num: "03", title: "AHE KATU ENUNA", feat: "Ft PRABA", album: "LIL ROME", duration: "4:08", hot: false, youtube: "https://youtu.be/GOXDQ94ECJQ?si=x1OZZ6xVJBskYpQX" },
+  { num: "04", title: "දහම (Dahama)", feat: "Ft PRABA", album: "LIL ROME", duration: "3:40", hot: false, youtube: "https://youtu.be/-d8b6E5JLi8?si=Es086X9MrMLna-Rw" },
+  { num: "05", title: "දේවත්වෙන් (Dewathwen)", feat: "Ft PRABA", album: "LIL ROME", duration: "5:00", hot: false, youtube: "https://youtu.be/v-5y_AxVd3M?si=DBMiQIq8mND-3cbB" },
+  { num: "06", title: "නාය යයි (Naaya yai)", feat: "Ft PRABA", album: "LIL ROME", duration: "6:08", hot: false, youtube: "https://youtu.be/uBu_OGfn-AE?si=t1Bq6G71Xd03rfkB" },
+  { num: "07", title: "Na Hook", feat: "Costa x Lil Rome Praba", album: "LIL ROME", duration: "2:50", hot: false, youtube: "https://youtu.be/aFwBgKIbdvc?si=VvwaM5xUyZx0NXEx" },
+  { num: "08", title: "Ahasa Gugura (අහස ගුගුරා)", feat: "Ft Praba", album: "LIL ROME", duration: "3:35", hot: false, youtube: "https://youtu.be/UGRcqlCMQ00?si=CQ8iIhGbebHmQs-i" },
 ];
 
 function getYouTubeID(url: string): string | null {
@@ -33,7 +34,6 @@ function getYouTubeID(url: string): string | null {
   return match ? match[1] : null;
 }
 
-// FIXED: Using interface instead of namespace for better TypeScript practices
 interface YTPlayer {
   destroy(): void;
   playVideo(): void;
@@ -60,7 +60,6 @@ interface YTPlayerConstructor {
   ): YTPlayer;
 }
 
-// FIXED: Proper interface extension without unsafe declaration merging
 interface YTAPI {
   Player: YTPlayerConstructor;
   PlayerState: {
@@ -69,7 +68,6 @@ interface YTAPI {
   };
 }
 
-// FIXED: Proper window interface extension
 interface CustomWindow extends Window {
   YT?: YTAPI;
   onYouTubeIframeAPIReady?: () => void;
@@ -85,6 +83,7 @@ export default function Music() {
   const [urlInput, setUrlInput] = useState("");
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState("0:00");
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false);
 
   const playerRef = useRef<YTPlayer | null>(null);
   const playerContainerRef = useRef<HTMLDivElement>(null);
@@ -97,6 +96,21 @@ export default function Music() {
       document.body.appendChild(tag);
     }
   }, []);
+
+  // Close the popup with Escape, and lock body scroll while it's open
+  useEffect(() => {
+    if (!isPlayerOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsPlayerOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isPlayerOpen]);
 
   const destroyPlayer = () => {
     if (playerRef.current) {
@@ -115,6 +129,7 @@ export default function Music() {
     destroyPlayer();
     setCurrentIndex(index);
     setIsPlaying(true);
+    setIsPlayerOpen(true);
 
     const init = () => {
       if (!playerContainerRef.current || !window.YT) return;
@@ -192,7 +207,6 @@ export default function Music() {
 
   const currentTrack = currentIndex !== null ? trackList[currentIndex] : null;
 
-  // Album data with images
   const albums = [
     { title: "Streets Never Lie", year: "2025", tracks: 12, image: album1 },
     { title: "Dark Hours", year: "2023", tracks: 10, image: album2 },
@@ -203,7 +217,7 @@ export default function Music() {
     <section id="music" className="bg-dark-1 py-24 lg:py-32 relative overflow-hidden">
       <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-blood/5 to-transparent pointer-events-none" />
 
-      {/* Hidden YouTube mount point */}
+      {/* Hidden YouTube mount point — reused by both the mini bar and the popup */}
       <div ref={playerContainerRef} style={{ position: "absolute", opacity: 0, pointerEvents: "none" }} />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -219,9 +233,12 @@ export default function Music() {
           <a href="#" className="btn-outline px-6 py-2 text-xs hidden md:block">All Music</a>
         </div>
 
-        {/* Now Playing Bar */}
+        {/* Now Playing Bar — click to expand into the full popup player */}
         {currentTrack && (
-          <div className="mb-8 flex flex-col md:flex-row items-center gap-4 bg-white/5 border border-white/10 rounded px-6 py-4">
+          <button
+            onClick={() => setIsPlayerOpen(true)}
+            className="w-full mb-8 flex flex-col md:flex-row items-center gap-4 bg-white/5 hover:bg-white/[0.07] border border-white/10 rounded px-6 py-4 text-left transition-colors"
+          >
             <div className="flex-1 min-w-0">
               <p className="font-oswald text-xs text-crimson uppercase tracking-widest mb-1">Now Playing</p>
               <p className="font-oswald text-lg text-white uppercase truncate">{currentTrack.title}</p>
@@ -231,7 +248,10 @@ export default function Music() {
             </div>
 
             {/* Progress */}
-            <div className="flex items-center gap-3 w-full md:w-64">
+            <div
+              className="flex items-center gap-3 w-full md:w-64"
+              onClick={(e) => e.stopPropagation()}
+            >
               <span className="font-oswald text-xs text-gray-500">{currentTime}</span>
               <div
                 className="flex-1 h-1 bg-white/10 rounded-full cursor-pointer"
@@ -246,7 +266,7 @@ export default function Music() {
             </div>
 
             {/* Controls */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => skipTrack(-1)}
                 className="text-gray-400 hover:text-white transition-colors text-lg"
@@ -261,8 +281,9 @@ export default function Music() {
                 onClick={() => skipTrack(1)}
                 className="text-gray-400 hover:text-white transition-colors text-lg"
               >⏭</button>
+              <span className="hidden md:inline text-gray-600 group-hover:text-white text-lg pl-2">⤢</span>
             </div>
-          </div>
+          </button>
         )}
 
         {/* Track List */}
@@ -394,17 +415,13 @@ export default function Music() {
         <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
           {albums.map((album) => (
             <div key={album.title} className="group relative aspect-square overflow-hidden cursor-pointer">
-              {/* Album Image */}
               <Image
                 src={album.image}
                 alt={album.title}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
-
-              {/* Dark Overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/70 group-hover:from-black/50 group-hover:to-black/60 transition-all duration-400" />
-
               <div
                 className="absolute inset-0 opacity-10 pointer-events-none"
                 style={{
@@ -417,6 +434,156 @@ export default function Music() {
           ))}
         </div>
       </div>
+
+      {/* ── Now Playing Popup ─────────────────────────────────────── */}
+      {isPlayerOpen && currentTrack && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center px-3 sm:px-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Now playing"
+        >
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/85 backdrop-blur-sm"
+            onClick={() => setIsPlayerOpen(false)}
+          />
+
+          {/* Card */}
+          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-dark-1 border border-white/10 rounded-sm">
+            {/* Grid texture, consistent with the album tiles */}
+            <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
+                  backgroundSize: "28px 28px",
+                }}
+              />
+            </div>
+            {/* Ghost track number watermark */}
+            <span className="pointer-events-none select-none absolute -top-4 -right-2 sm:-top-6 sm:-right-4 font-display text-[6rem] sm:text-[8rem] lg:text-[11rem] leading-none text-white/[0.04] overflow-hidden">
+              {currentTrack.num}
+            </span>
+            <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-l from-blood/10 to-transparent pointer-events-none" />
+
+            {/* Close */}
+            <button
+              onClick={() => setIsPlayerOpen(false)}
+              className="absolute top-4 right-4 sm:top-5 sm:right-5 z-10 w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full border border-white/10 text-gray-400 hover:text-white hover:border-white/30 transition-colors flex-shrink-0"
+              aria-label="Close player"
+            >
+              ✕
+            </button>
+
+            <div className="relative px-5 pt-9 pb-7 sm:px-8 sm:pt-10 sm:pb-8 lg:px-12 lg:pt-14 lg:pb-10">
+              <div className="flex items-center gap-3 mb-5 sm:mb-6 pr-10">
+                <div className="w-6 sm:w-8 h-px bg-crimson flex-shrink-0" />
+                <span className="font-oswald text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.3em] uppercase text-crimson">
+                  Now Playing · Track {currentTrack.num}
+                </span>
+              </div>
+
+              {/* Equalizer + title */}
+              <div className="flex items-end gap-3 sm:gap-5 mb-2">
+                <div className="flex items-end gap-1 h-8 sm:h-10 flex-shrink-0">
+                  {Array.from({ length: 5 }).map((_, j) => (
+                    <div
+                      key={j}
+                      className={`w-1 sm:w-1.5 rounded-full bg-crimson ${isPlaying ? "animate-eq" : ""}`}
+                      style={{
+                        height: isPlaying ? undefined : "20%",
+                        animationDelay: `${j * 0.12}s`,
+                      }}
+                    />
+                  ))}
+                </div>
+                <h3 className="min-w-0 flex-1 font-display text-2xl sm:text-4xl lg:text-5xl text-white leading-[1] sm:leading-[0.95] uppercase break-words">
+                  {currentTrack.title}
+                </h3>
+              </div>
+
+              {currentTrack.feat && (
+                <p className="font-barlow text-xs sm:text-sm text-gray-500 uppercase tracking-wider mb-6 sm:mb-8 pl-[2.75rem] sm:pl-[3.25rem]">
+                  {currentTrack.feat} · {currentTrack.album}
+                </p>
+              )}
+
+              {/* Progress */}
+              <div className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+                <span className="font-oswald text-[10px] sm:text-xs text-gray-500 w-8 sm:w-10 flex-shrink-0">{currentTime}</span>
+                <div
+                  className="flex-1 h-1.5 bg-white/10 rounded-full cursor-pointer group"
+                  onClick={handleProgressClick}
+                >
+                  <div
+                    className="relative h-full bg-crimson rounded-full transition-all"
+                    style={{ width: `${progress}%` }}
+                  >
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-3 h-3 rounded-full bg-crimson opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </div>
+                <span className="font-oswald text-[10px] sm:text-xs text-gray-500 w-8 sm:w-10 text-right flex-shrink-0">{currentTrack.duration}</span>
+              </div>
+
+              {/* Controls */}
+              <div className="flex items-center justify-center gap-6 sm:gap-8">
+                <button
+                  onClick={() => skipTrack(-1)}
+                  disabled={currentIndex === 0}
+                  className="text-gray-400 hover:text-white disabled:opacity-20 disabled:hover:text-gray-400 transition-colors text-xl sm:text-2xl"
+                  aria-label="Previous track"
+                >⏮</button>
+                <button
+                  onClick={togglePlay}
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-crimson flex items-center justify-center text-white text-lg sm:text-xl hover:bg-red-600 transition-colors"
+                  aria-label={isPlaying ? "Pause" : "Play"}
+                >
+                  {isPlaying ? "⏸" : "▶"}
+                </button>
+                <button
+                  onClick={() => skipTrack(1)}
+                  disabled={currentIndex === trackList.length - 1}
+                  className="text-gray-400 hover:text-white disabled:opacity-20 disabled:hover:text-gray-400 transition-colors text-xl sm:text-2xl"
+                  aria-label="Next track"
+                >⏭</button>
+              </div>
+
+              {/* Up next */}
+              {currentIndex !== null && currentIndex + 1 < trackList.length && (
+                <div className="mt-8 sm:mt-10 pt-5 sm:pt-6 border-t border-white/5 flex items-center justify-between gap-4 flex-wrap">
+                  <div className="min-w-0">
+                    <p className="font-oswald text-[10px] text-gray-600 uppercase tracking-widest mb-1">Up Next</p>
+                    <p className="font-oswald text-xs sm:text-sm text-gray-300 uppercase truncate">
+                      {trackList[currentIndex + 1].title}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => skipTrack(1)}
+                    className="font-oswald text-xs uppercase tracking-widest text-crimson hover:text-white transition-colors flex-shrink-0"
+                  >
+                    Skip →
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style jsx global>{`
+        @keyframes eq {
+          0%, 100% { height: 20%; }
+          50% { height: 100%; }
+        }
+        .animate-eq {
+          animation: eq 0.9s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .animate-eq { animation: none; height: 60%; }
+        }
+      `}</style>
     </section>
   );
 }

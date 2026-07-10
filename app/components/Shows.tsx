@@ -2,23 +2,14 @@
 const shows = [
   {
     date: "2026",
-    day: "June 13",
-    event: "කැරැල්ල",
-    city: "Galle",
-    venue: "Samanala Grounds",
+    day: "August 08",
+    event: "Beheth",
+    city: "Colombo",
+    venue: "Port City Colombo",
     country: "Sri Lanka",
     status: "On Sale",
     sold: false,
-    ticketUrl: "https://keralla.kodikaraentertainments.com/?fbclid=IwZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPMjc1MjU0NjkyNTk4Mjc5AAEeR2EDGVpNBL3zuvjHJvJ93dCqldKjWlipHKuDKzNtavRx0pE_09Pv8b5Ddcc_aem_rWTPu6_RWu0SKcgMAFsMLw",
-  },
-  {
-    date: "2026",
-    day: "July 05",
-    event: "Megha Naadha 360",
-    country: "Japan",
-    status: "On Sale",
-    sold: false,
-    ticketUrl: "https://docs.google.com/forms/d/e/1FAIpQLSe5Gy5vDwE1b0lNoh-dkCuyZZ3RdQGM9VOYbBECXaJ53KXnzQ/viewform",
+    ticketUrl: "https://tickets.behethconcert.com/",
   },
 ];
 
