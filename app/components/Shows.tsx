@@ -2,10 +2,10 @@
 const shows = [
   {
     date: "2026",
-    day: "August 08",
+    day: "September 05",
     event: "Beheth",
     city: "Colombo",
-    venue: "Port City Colombo",
+    venue: "Lotus Tower Colombo",
     country: "Sri Lanka",
     status: "On Sale",
     sold: false,

@@ -101,7 +101,7 @@ export default function Footer() {
               © 2026 LIL ROME PRABA Official. All rights reserved.
             </p>
             <p className="font-oswald text-xs tracking-widest text-gray-800 uppercase">
-              Developed by Tharaka Nuwan Athuluwage
+              Developed by RAVANA TECH SOLUTIONS
             </p>
           </div>
         </div>

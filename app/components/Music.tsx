@@ -16,14 +16,15 @@ interface Track {
 }
 
 const initialTracks: Track[] = [
-  { num: "01", title: "TIKX KOODA", feat: "Hood Superstars ft Lil Rome Praba", album: "LIL ROME", duration: "2:35", hot: true, youtube: "https://www.youtube.com/watch?v=j1Cq6725RUI&list=RDj1Cq6725RUI&start_radio=1" },
-  { num: "02", title: "Kachal Kasi", feat: "ft Smokio", album: "LIL ROME", duration: "4:51", hot: false, youtube: "https://youtu.be/QKY9jEIXfVQ?si=v43De7iim_NY5imN" },
-  { num: "03", title: "AHE KATU ENUNA", feat: "Ft PRABA", album: "LIL ROME", duration: "4:08", hot: false, youtube: "https://youtu.be/GOXDQ94ECJQ?si=x1OZZ6xVJBskYpQX" },
-  { num: "04", title: "දහම (Dahama)", feat: "Ft PRABA", album: "LIL ROME", duration: "3:40", hot: false, youtube: "https://youtu.be/-d8b6E5JLi8?si=Es086X9MrMLna-Rw" },
-  { num: "05", title: "දේවත්වෙන් (Dewathwen)", feat: "Ft PRABA", album: "LIL ROME", duration: "5:00", hot: false, youtube: "https://youtu.be/v-5y_AxVd3M?si=DBMiQIq8mND-3cbB" },
-  { num: "06", title: "නාය යයි (Naaya yai)", feat: "Ft PRABA", album: "LIL ROME", duration: "6:08", hot: false, youtube: "https://youtu.be/uBu_OGfn-AE?si=t1Bq6G71Xd03rfkB" },
-  { num: "07", title: "Na Hook", feat: "Costa x Lil Rome Praba", album: "LIL ROME", duration: "2:50", hot: false, youtube: "https://youtu.be/aFwBgKIbdvc?si=VvwaM5xUyZx0NXEx" },
-  { num: "08", title: "Ahasa Gugura (අහස ගුගුරා)", feat: "Ft Praba", album: "LIL ROME", duration: "3:35", hot: false, youtube: "https://youtu.be/UGRcqlCMQ00?si=CQ8iIhGbebHmQs-i" },
+  { num: "01", title: " අත ඇරලා දාලා (Atha Arala Daala)", feat: "Lil Rome Praba x Tikx Kooda", album: "LIL ROME", duration: "4:45", hot: false, youtube: "https://www.youtube.com/watch?v=vRgWHE9e7mI&list=RDvRgWHE9e7mI&start_radio=1" },
+  { num: "02", title: "Hood Superstars", feat: "TIKX KOODA ft Lil Rome Praba", album: "LIL ROME", duration: "2:35", hot: true, youtube: "https://www.youtube.com/watch?v=j1Cq6725RUI&list=RDj1Cq6725RUI&start_radio=1" },
+  { num: "03", title: "Kachal Kasi", feat: "ft Smokio", album: "LIL ROME", duration: "4:51", hot: false, youtube: "https://youtu.be/QKY9jEIXfVQ?si=v43De7iim_NY5imN" },
+  { num: "04", title: "AHE KATU ENUNA", feat: "Ft PRABA", album: "LIL ROME", duration: "4:08", hot: false, youtube: "https://youtu.be/GOXDQ94ECJQ?si=x1OZZ6xVJBskYpQX" },
+  { num: "05", title: "දහම (Dahama)", feat: "Ft PRABA", album: "LIL ROME", duration: "3:40", hot: false, youtube: "https://youtu.be/-d8b6E5JLi8?si=Es086X9MrMLna-Rw" },
+  { num: "06", title: "දේවත්වෙන් (Dewathwen)", feat: "Ft PRABA", album: "LIL ROME", duration: "5:00", hot: false, youtube: "https://youtu.be/v-5y_AxVd3M?si=DBMiQIq8mND-3cbB" },
+  { num: "07", title: "නාය යයි (Naaya yai)", feat: "Ft PRABA", album: "LIL ROME", duration: "6:08", hot: false, youtube: "https://youtu.be/uBu_OGfn-AE?si=t1Bq6G71Xd03rfkB" },
+  { num: "08", title: "Na Hook", feat: "Costa x Lil Rome Praba", album: "LIL ROME", duration: "2:50", hot: false, youtube: "https://youtu.be/aFwBgKIbdvc?si=VvwaM5xUyZx0NXEx" },
+  { num: "09", title: "Ahasa Gugura (අහස ගුගුරා)", feat: "Ft Praba", album: "LIL ROME", duration: "3:35", hot: false, youtube: "https://youtu.be/UGRcqlCMQ00?si=CQ8iIhGbebHmQs-i" },
 ];
 
 function getYouTubeID(url: string): string | null {

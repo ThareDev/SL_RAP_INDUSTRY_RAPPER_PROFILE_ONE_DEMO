@@ -37,19 +37,19 @@ function FireworksCanvas({ active }: { active: boolean }) {
   const getOriginXY = useCallback((origin: Origin, w: number, h: number): [number, number] => {
     const yBase = h - 8;
     switch (origin) {
-      case "bl":       return [14 + Math.random() * 20,           yBase];
-      case "br":       return [w - 14 - Math.random() * 20,       yBase];
-      case "bm-left":  return [w * 0.28 + Math.random() * w * 0.08, yBase];
+      case "bl": return [14 + Math.random() * 20, yBase];
+      case "br": return [w - 14 - Math.random() * 20, yBase];
+      case "bm-left": return [w * 0.28 + Math.random() * w * 0.08, yBase];
       case "bm-right": return [w * 0.64 + Math.random() * w * 0.08, yBase];
     }
   }, []);
 
   const getAngleRange = (origin: Origin): [number, number] => {
     switch (origin) {
-      case "bl":       return [-Math.PI * 0.85, -Math.PI * 0.15];
-      case "br":       return [-Math.PI * 0.85, -Math.PI * 0.15];
-      case "bm-left":  return [-Math.PI * 0.9,  -Math.PI * 0.1];
-      case "bm-right": return [-Math.PI * 0.9,  -Math.PI * 0.1];
+      case "bl": return [-Math.PI * 0.85, -Math.PI * 0.15];
+      case "br": return [-Math.PI * 0.85, -Math.PI * 0.15];
+      case "bm-left": return [-Math.PI * 0.9, -Math.PI * 0.1];
+      case "bm-right": return [-Math.PI * 0.9, -Math.PI * 0.1];
     }
   };
 
@@ -167,9 +167,9 @@ function FireworksCanvas({ active }: { active: boolean }) {
 
     frameRef.current = requestAnimationFrame(draw);
 
-    const t1 = setTimeout(() => burst("bl"),       0);
-    const t2 = setTimeout(() => burst("br"),       400);
-    const t3 = setTimeout(() => burst("bm-left"),  900);
+    const t1 = setTimeout(() => burst("bl"), 0);
+    const t2 = setTimeout(() => burst("br"), 400);
+    const t3 = setTimeout(() => burst("bm-left"), 900);
     const t4 = setTimeout(() => burst("bm-right"), 1400);
 
     launchRef.current = setInterval(() => {
@@ -284,7 +284,7 @@ export default function EventBannerPopup() {
           0%   { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-        .ticker-inner { animation: ticker-scroll 16s linear infinite; white-space: nowrap; display: inline-block; }
+        .ticker-inner { animation: ticker-scroll 40s linear infinite; white-space: nowrap; display: inline-block; }
 
         @keyframes badge-pulse {
           0%, 100% { box-shadow: 0 0 0 0 rgba(180,0,0,0.8); }
@@ -402,7 +402,7 @@ export default function EventBannerPopup() {
                 >
                   <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#cc0000", display: "inline-block" }} />
                   <span style={{ fontFamily: "'Oswald', Impact, sans-serif", fontSize: 9, letterSpacing: "0.28em", color: "#cc0000", textTransform: "uppercase" }}>
-                    On Sale — Aug 08, 2026
+                    On Sale — Sep 05, 2026
                   </span>
                 </div>
 
@@ -429,7 +429,7 @@ export default function EventBannerPopup() {
                   whileTap={{ scale: 0.97 }}
                 >
                   <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", display: "inline-block", flexShrink: 0 }} />
-                  Get Tickets — Port City Colombo
+                  Get Tickets — Lotus Tower Colombo
                   <span>→</span>
                 </motion.a>
 
@@ -453,7 +453,7 @@ export default function EventBannerPopup() {
                 <div className="ticker-inner">
                   {Array.from({ length: 8 }, (_, i) => (
                     <span key={i} style={{ fontFamily: "Impact, Oswald, sans-serif", fontSize: 9, letterSpacing: "0.28em", color: "#fff", textTransform: "uppercase", marginRight: 28 }}>
-                      BEHETH &nbsp;🔥&nbsp; AUGUST 08, 2026 &nbsp;★&nbsp; PORT CITY COLOMBO &nbsp;★&nbsp; COLOMBO, SRI LANKA &nbsp;★&nbsp; TICKETS ON SALE NOW &nbsp;★&nbsp;
+                      BEHETH &nbsp;🔥&nbsp; SEPTEMBER 05, 2026 &nbsp;★&nbsp; Lotus Tower Colombo &nbsp;★&nbsp; COLOMBO, SRI LANKA &nbsp;★&nbsp; TICKETS ON SALE NOW &nbsp;★&nbsp;
                     </span>
                   ))}
                 </div>
