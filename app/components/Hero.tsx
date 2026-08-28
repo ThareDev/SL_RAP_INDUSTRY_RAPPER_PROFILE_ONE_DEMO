@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import artist from "@/public/heronew.png";
+import artistMobile from "@/public/heroneww.png";
 import { useEffect, useRef, useState, JSX } from "react";
 import {
   motion,
@@ -597,7 +598,7 @@ export default function Hero(): JSX.Element {
           />
 
           <Image
-            src={artist}
+            src={isMobile ? artistMobile : artist}
             alt="Lil Rome Praba"
             fill
             className="object-cover object-top"
