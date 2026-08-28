@@ -1,5 +1,5 @@
 import Image from "next/image";
-import song from '@/public/song.jpg';
+import song from '@/public/praba.png';
 
 export default function About() {
   return (
