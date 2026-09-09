@@ -1,12 +1,11 @@
-const video1 = "/blogs/v1.mp4";
+const video1 = "/blogs/v4.mp4";
 const video2 = "/blogs/v2.mp4";
-const video3 = "/blogs/v3.mp4";
+const video3 = "/blogs/v1.mp4";
 
 const posts = [
   {
-    category: "Behind the Scenes",
-    title: "Lil Rome Praba x Tikx Kooda - අත ඇරලා දාලා Atha Arala Daala",
-    excerpt: "48 hours straight in the booth. Here's what really went down when we recorded the title track.",
+    category: "In the Scenes",
+    title: "Lil Rome Praba  With Hiru Copy Chat",
     readTime: "5 min read",
     video: video1,
   },
@@ -18,10 +17,10 @@ const posts = [
     video: video2,
   },
   {
-    category: "On Stage",
-    title: "Official live performance at Karalla 2026",
-    excerpt: "They came with numbers I'd never seen. I walked away anyway. Here's the honest reason why.",
-    readTime: "7 min read",
+    category: "Behind the Scenes",
+    title: "Lil Rome Praba x Tikx Kooda - අත ඇරලා දාලා Atha Arala Daala",
+    excerpt: "48 hours straight in the booth. Here's what really went down when we recorded the title track.",
+    readTime: "5 min read",
     video: video3,
   },
 ];

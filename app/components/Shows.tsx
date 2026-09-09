@@ -2,14 +2,14 @@
 const shows = [
   {
     date: "2026",
-    day: "September 05",
-    event: "Beheth",
-    city: "Colombo",
-    venue: "Lotus Tower Colombo",
+    day: "September 12",
+    event: "AGNI Rap Concert",
+    city: "Kandy",
+    venue: "Sahas Uyana",
     country: "Sri Lanka",
     status: "On Sale",
     sold: false,
-    ticketUrl: "https://tickets.behethconcert.com/",
+    ticketUrl: "https://www.ticketsministry.com/concerts/agni-rap-concert/6a4348aeb7d9e",
   },
 ];
 

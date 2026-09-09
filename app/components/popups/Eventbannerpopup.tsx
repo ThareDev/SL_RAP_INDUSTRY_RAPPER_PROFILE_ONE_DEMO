@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import bannerImg from "@/public/banners/banner-beheth.jpeg";
+import bannerImg from "@/public/banners/banner-agni.jpeg";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 
@@ -26,11 +26,11 @@ function FireworksCanvas({ active }: { active: boolean }) {
   const launchRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const originIdx = useRef<number>(0);
 
-  // Crimson / ember / ash palette matching the Beheth poster
+  // Crimson / ember / gold palette matching the Agni poster (fire + gold skulls)
   const COLORS = [
     "#cc0000", "#ff2200", "#ff4400",
     "#ff8800", "#ffaa00", "#ffcc44",
-    "#ffffff", "#ffddcc",
+    "#ffd700", "#ffe066",
     "#880000", "#ff1111",
   ];
 
@@ -352,7 +352,7 @@ export default function EventBannerPopup() {
               {/* scanlines */}
               <div className="popup-scanlines absolute inset-0 pointer-events-none z-[6]" />
 
-              {/* Fireworks — ember/crimson palette */}
+              {/* Fireworks — ember/crimson/gold palette */}
               <FireworksCanvas active={open && imgLoaded} />
 
               {/* corner brackets */}
@@ -373,7 +373,7 @@ export default function EventBannerPopup() {
               {/* ── Banner Image ── */}
               <div
                 className="relative w-full"
-                style={{ aspectRatio: "1/1", zIndex: 20 }}
+                style={{ aspectRatio: "3/4", zIndex: 20 }}
               >
                 {!imgLoaded && (
                   <div className="img-skeleton absolute inset-0 z-10" />
@@ -381,7 +381,7 @@ export default function EventBannerPopup() {
 
                 <Image
                   src={bannerImg}
-                  alt="Beheth — Another Entrance Opens Today"
+                  alt="අග්නි — Senkadagala Edition 2026, Alpha Events"
                   fill
                   className="object-cover object-top"
                   priority
@@ -402,7 +402,7 @@ export default function EventBannerPopup() {
                 >
                   <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#cc0000", display: "inline-block" }} />
                   <span style={{ fontFamily: "'Oswald', Impact, sans-serif", fontSize: 9, letterSpacing: "0.28em", color: "#cc0000", textTransform: "uppercase" }}>
-                    On Sale — Sep 05, 2026
+                    Tickets On Sale — Phase 01
                   </span>
                 </div>
 
@@ -415,21 +415,21 @@ export default function EventBannerPopup() {
 
               {/* ── CTA ── */}
               <motion.div
-                className="relative px-5 pt-3 pb-5 z-40"
+                className="relative px-5 pt-3 pb-5 z-40 "
                 variants={ctaVariants}
                 initial="hidden"
                 animate={imgLoaded ? "show" : "hidden"}
                 transition={{ delay: 0.3 }}
               >
                 <motion.a
-                  href="https://tickets.behethconcert.com/"
+                  href="https://www.ticketsministry.com/concerts/agni-rap-concert/6a4348aeb7d9e"
                   className="popup-ticket-btn"
                   onClick={close}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                 >
                   <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", display: "inline-block", flexShrink: 0 }} />
-                  Get Tickets — Lotus Tower Colombo
+                  Get Tickets — Sahas Uyana, Kandy
                   <span>→</span>
                 </motion.a>
 
@@ -453,7 +453,7 @@ export default function EventBannerPopup() {
                 <div className="ticker-inner">
                   {Array.from({ length: 8 }, (_, i) => (
                     <span key={i} style={{ fontFamily: "Impact, Oswald, sans-serif", fontSize: 9, letterSpacing: "0.28em", color: "#fff", textTransform: "uppercase", marginRight: 28 }}>
-                      BEHETH &nbsp;🔥&nbsp; SEPTEMBER 05, 2026 &nbsp;★&nbsp; Lotus Tower Colombo &nbsp;★&nbsp; COLOMBO, SRI LANKA &nbsp;★&nbsp; TICKETS ON SALE NOW &nbsp;★&nbsp;
+                      අග්නි — SENKADAGALA EDITION &nbsp;🔥&nbsp; SEPTEMBER 12, 2026 &nbsp;★&nbsp; SAHAS UYANA, KANDY &nbsp;★&nbsp; 4.00 PM – 12.00 AM &nbsp;★&nbsp; TICKETS ON SALE NOW &nbsp;★&nbsp;
                     </span>
                   ))}
                 </div>
