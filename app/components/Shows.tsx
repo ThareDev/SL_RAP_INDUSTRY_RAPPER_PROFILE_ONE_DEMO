@@ -1,17 +1,16 @@
+type Show = {
+  date: string;
+  day: string;
+  event: string;
+  city: string;
+  venue: string;
+  country: string;
+  status: string;
+  sold: boolean;
+  ticketUrl?: string;
+};
 
-const shows = [
-  {
-    date: "2026",
-    day: "September 12",
-    event: "AGNI Rap Concert",
-    city: "Kandy",
-    venue: "Sahas Uyana",
-    country: "Sri Lanka",
-    status: "On Sale",
-    sold: false,
-    ticketUrl: "https://www.ticketsministry.com/concerts/agni-rap-concert/6a4348aeb7d9e",
-  },
-];
+const shows: Show[] = [];
 
 export default function Shows() {
   return (
@@ -28,9 +27,11 @@ export default function Shows() {
               <span className="font-oswald text-xs tracking-[0.3em] uppercase text-crimson">Live</span>
             </div>
             <h2 className="font-display text-5xl lg:text-7xl text-white">TOUR DATES</h2>
-            <p className="font-barlow text-gray-500 uppercase tracking-widest text-sm mt-2">
-              2026 World Tour
-            </p>
+            {shows.length > 0 && (
+              <p className="font-barlow text-gray-500 uppercase tracking-widest text-sm mt-2">
+                2026 World Tour
+              </p>
+            )}
           </div>
 
           {/* Year indicator */}
@@ -38,73 +39,86 @@ export default function Shows() {
         </div>
 
         {/* Shows list */}
-        <div className="space-y-2">
-          {shows.map((show, i) => (
-            <div
-              key={i}
-              className={`show-card bg-dark-2 rounded-sm ${show.sold ? "opacity-50" : ""}`}
-            >
-              <div className="flex items-center gap-4 lg:gap-8 px-4 lg:px-6 py-4 lg:py-5">
-                {/* Date */}
-                <div className="flex-shrink-0 w-16 lg:w-20 text-center">
-                  <div className="font-display text-xl lg:text-2xl text-white">{show.date}</div>
-                  <div className="font-oswald text-xs tracking-widest text-gray-600 uppercase">{show.day}</div>
-                </div>
-
-                {/* Divider */}
-                <div className="hidden md:block w-px h-10 bg-white/10 flex-shrink-0" />
-
-                {/* City / Venue */}
-                <div className="flex-1 min-w-0">
-                  <div className="font-oswald text-xs tracking-[0.25em] uppercase text-crimson mb-1">
-                    {show.event}
+        {shows.length === 0 ? (
+          <div className="bg-dark-2 rounded-sm border border-white/5 px-6 py-16 lg:py-20 text-center">
+            <div className="w-8 h-px bg-crimson mx-auto mb-6" />
+            <h3 className="font-display text-3xl lg:text-4xl text-white mb-3">
+              NO SHOWS RIGHT NOW
+            </h3>
+            <p className="font-barlow text-gray-500 uppercase tracking-widest text-sm">
+              Tour dates will be updated soon
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {shows.map((show, i) => (
+              <div
+                key={i}
+                className={`show-card bg-dark-2 rounded-sm ${show.sold ? "opacity-50" : ""}`}
+              >
+                <div className="flex items-center gap-4 lg:gap-8 px-4 lg:px-6 py-4 lg:py-5">
+                  {/* Date */}
+                  <div className="flex-shrink-0 w-16 lg:w-20 text-center">
+                    <div className="font-display text-xl lg:text-2xl text-white">{show.date}</div>
+                    <div className="font-oswald text-xs tracking-widest text-gray-600 uppercase">{show.day}</div>
                   </div>
-                  <div className="flex items-center gap-3 flex-wrap">
-                    <span className="font-display text-lg lg:text-2xl text-white uppercase">{show.city}</span>
-                    <span className="font-oswald text-xs tracking-widest text-gray-600 uppercase">{show.country}</span>
-                  </div>
-                  <div className="font-barlow text-sm text-gray-500 uppercase tracking-wide mt-0.5">
-                    {show.venue}
-                  </div>
-                </div>
 
-                {/* Status & CTA */}
-                <div className="flex items-center gap-4 flex-shrink-0">
-                  <span
-                    className={`font-oswald text-xs tracking-[0.2em] uppercase hidden sm:block ${show.sold
-                        ? "text-gray-600"
-                        : show.status === "Few Left"
+                  {/* Divider */}
+                  <div className="hidden md:block w-px h-10 bg-white/10 flex-shrink-0" />
+
+                  {/* City / Venue */}
+                  <div className="flex-1 min-w-0">
+                    <div className="font-oswald text-xs tracking-[0.25em] uppercase text-crimson mb-1">
+                      {show.event}
+                    </div>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <span className="font-display text-lg lg:text-2xl text-white uppercase">{show.city}</span>
+                      <span className="font-oswald text-xs tracking-widest text-gray-600 uppercase">{show.country}</span>
+                    </div>
+                    <div className="font-barlow text-sm text-gray-500 uppercase tracking-wide mt-0.5">
+                      {show.venue}
+                    </div>
+                  </div>
+
+                  {/* Status & CTA */}
+                  <div className="flex items-center gap-4 flex-shrink-0">
+                    <span
+                      className={`font-oswald text-xs tracking-[0.2em] uppercase hidden sm:block ${
+                        show.sold
+                          ? "text-gray-600"
+                          : show.status === "Few Left"
                           ? "text-gold"
                           : show.status === "Coming Soon"
-                            ? "text-gray-500"
-                            : "text-green-500"
+                          ? "text-gray-500"
+                          : "text-green-500"
                       }`}
-                  >
-                    {show.status}
-                  </span>
-                  {!show.sold && show.status !== "Coming Soon" ? (
-                    <a
-                      href={show.ticketUrl || "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-primary px-4 lg:px-6 py-2 text-xs font-bold flex-shrink-0"
                     >
-                      Tickets
-                    </a>
-                  ) : show.status === "Coming Soon" ? (
-                    <button className="btn-outline px-4 lg:px-6 py-2 text-xs flex-shrink-0">
-                      Notify Me
-                    </button>
-                  ) : (
-                    <span className="font-oswald text-xs tracking-widest text-gray-700 uppercase px-4 lg:px-6 py-2">
-                      Sold Out
+                      {show.status}
                     </span>
-                  )}
+                    {!show.sold && show.status !== "Coming Soon" ? (
+                      <a
+                        href={show.ticketUrl || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary px-4 lg:px-6 py-2 text-xs font-bold flex-shrink-0"
+                      >
+                        Tickets
+                      </a>
+                    ) : show.status === "Coming Soon" ? (
+                      <button className="btn-outline px-4 lg:px-6 py-2 text-xs flex-shrink-0">
+                        Notify Me
+                      </button>
+                    ) : (
+                      <span className="font-oswald text-xs tracking-widest text-gray-700 uppercase px-4 lg:px-6 py-2">
+                        Sold Out
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* VIP Box */}
         <div className="mt-12 border border-gold/20 bg-gradient-to-r from-gold/5 to-transparent rounded-sm p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
