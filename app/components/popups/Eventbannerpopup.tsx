@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import bannerImg from "@/public/banners/banner-agni.jpeg";
+import bannerImg from "@/public/banners/banner-rap-reggae.jpeg";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 
@@ -19,20 +19,22 @@ interface Particle {
 
 type Origin = "bl" | "br" | "bm-left" | "bm-right";
 
+/* Gold / UAE flag (green, red, white) palette matching the poster */
+const COLORS = [
+  "#ffd700", "#ffcc44", "#ffe066", "#d4a017",
+  "#00a651", "#00732f",
+  "#e4002b", "#ff2a2a",
+  "#ffffff", "#fff2c2",
+];
+
+const SEQUENCE: Origin[] = ["bl", "br", "bm-left", "bm-right"];
+
 function FireworksCanvas({ active }: { active: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const frameRef = useRef<number>(0);
   const launchRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const originIdx = useRef<number>(0);
-
-  // Crimson / ember / gold palette matching the Agni poster (fire + gold skulls)
-  const COLORS = [
-    "#cc0000", "#ff2200", "#ff4400",
-    "#ff8800", "#ffaa00", "#ffcc44",
-    "#ffd700", "#ffe066",
-    "#880000", "#ff1111",
-  ];
 
   const getOriginXY = useCallback((origin: Origin, w: number, h: number): [number, number] => {
     const yBase = h - 8;
@@ -75,7 +77,7 @@ function FireworksCanvas({ active }: { active: boolean }) {
       });
     }
 
-    // ember ring
+    // golden ring
     for (let i = 0; i < 14; i++) {
       const angle = aMin + (i / 14) * (aMax - aMin);
       particlesRef.current.push({
@@ -83,7 +85,7 @@ function FireworksCanvas({ active }: { active: boolean }) {
         vx: Math.cos(angle) * (5.0 + Math.random() * 1.5),
         vy: Math.sin(angle) * (5.0 + Math.random() * 1.5),
         alpha: 0.8,
-        color: "#ff6600",
+        color: "#ffd700",
         size: 1.0,
         decay: 0.012,
         trail: [],
@@ -98,7 +100,7 @@ function FireworksCanvas({ active }: { active: boolean }) {
     if (!ctx) return;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particlesRef.current = particlesRef.current.filter(p => p.alpha > 0.02);
+    particlesRef.current = particlesRef.current.filter((p) => p.alpha > 0.02);
 
     for (const p of particlesRef.current) {
       p.trail.push({ x: p.x, y: p.y, alpha: p.alpha });
@@ -156,8 +158,6 @@ function FireworksCanvas({ active }: { active: boolean }) {
     return () => window.removeEventListener("resize", resize);
   }, []);
 
-  const SEQUENCE: Origin[] = ["bl", "br", "bm-left", "bm-right"];
-
   useEffect(() => {
     if (!active) {
       cancelAnimationFrame(frameRef.current);
@@ -183,7 +183,7 @@ function FireworksCanvas({ active }: { active: boolean }) {
       if (launchRef.current) clearInterval(launchRef.current);
       clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
     };
-  }, [active, burst, draw]); // eslint-disable-line
+  }, [active, burst, draw]);
 
   return (
     <canvas
@@ -220,6 +220,8 @@ const ctaVariants: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 };
 
+const TICKET_URL = "https://ticketsministry.net/concerts/rap-and-reggae-fiesta/6ac4c1270ab1a";
+
 /* ─────────────────────────────────────
    Main Component
 ───────────────────────────────────── */
@@ -243,8 +245,8 @@ export default function EventBannerPopup() {
           position: absolute; top: 12px; right: 12px;
           width: 32px; height: 32px;
           background: rgba(0,0,0,0.78);
-          border: 1px solid rgba(255,255,255,0.18);
-          color: rgba(255,255,255,0.85);
+          border: 1px solid rgba(255,215,0,0.35);
+          color: rgba(255,255,255,0.9);
           font-size: 14px; cursor: pointer;
           display: flex; align-items: center; justify-content: center;
           clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px);
@@ -252,19 +254,22 @@ export default function EventBannerPopup() {
           z-index: 60;
           backdrop-filter: blur(4px);
         }
-        .popup-close:hover { background: rgba(180,0,0,0.65); border-color: #cc0000; }
+        .popup-close:hover { background: rgba(0,115,47,0.75); border-color: #ffd700; }
+        .popup-close:focus-visible,
+        .popup-ticket-btn:focus-visible,
+        .popup-later:focus-visible { outline: 2px solid #ffd700; outline-offset: 2px; }
 
         .corner-accent {
           position: absolute; width: 20px; height: 20px;
-          border-color: #aa0000; border-style: solid;
+          border-color: #d4a017; border-style: solid;
           z-index: 55; pointer-events: none;
         }
 
         .popup-ticket-btn {
           display: flex; align-items: center; justify-content: center; gap: 10px;
           width: 100%; padding: 14px 0;
-          background: linear-gradient(135deg, #aa0000 0%, #cc1100 60%, #ff2200 100%);
-          color: #fff;
+          background: linear-gradient(135deg, #b8860b 0%, #e0a800 55%, #ffd700 100%);
+          color: #1a0f00;
           font-family: 'Oswald', Impact, sans-serif;
           font-size: 13px; font-weight: 700;
           letter-spacing: 0.22em; text-transform: uppercase;
@@ -274,10 +279,10 @@ export default function EventBannerPopup() {
         }
         .popup-ticket-btn::before {
           content: ''; position: absolute; inset: 0;
-          background: linear-gradient(120deg, rgba(255,255,255,0.18) 0%, transparent 55%);
+          background: linear-gradient(120deg, rgba(255,255,255,0.35) 0%, transparent 55%);
           opacity: 0; transition: opacity 0.3s;
         }
-        .popup-ticket-btn:hover { filter: brightness(1.15); }
+        .popup-ticket-btn:hover { filter: brightness(1.1); }
         .popup-ticket-btn:hover::before { opacity: 1; }
 
         @keyframes ticker-scroll {
@@ -287,8 +292,8 @@ export default function EventBannerPopup() {
         .ticker-inner { animation: ticker-scroll 40s linear infinite; white-space: nowrap; display: inline-block; }
 
         @keyframes badge-pulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(180,0,0,0.8); }
-          50%       { box-shadow: 0 0 0 5px rgba(180,0,0,0); }
+          0%, 100% { box-shadow: 0 0 0 0 rgba(255,215,0,0.7); }
+          50%       { box-shadow: 0 0 0 5px rgba(255,215,0,0); }
         }
         .live-dot { animation: badge-pulse 1.8s ease-in-out infinite; }
 
@@ -299,12 +304,11 @@ export default function EventBannerPopup() {
           );
         }
 
-        /* subtle red inner glow on panel */
         .panel-glow {
           box-shadow:
-            0 0 80px rgba(180,0,0,0.35),
-            0 0 160px rgba(180,0,0,0.14),
-            inset 0 0 40px rgba(100,0,0,0.18);
+            0 0 80px rgba(212,160,23,0.30),
+            0 0 160px rgba(0,115,47,0.14),
+            inset 0 0 40px rgba(60,40,0,0.20);
         }
 
         @keyframes shimmer {
@@ -312,9 +316,13 @@ export default function EventBannerPopup() {
           100% { background-position:  200% 0; }
         }
         .img-skeleton {
-          background: linear-gradient(90deg, #0d0000 25%, #1a0505 50%, #0d0000 75%);
+          background: linear-gradient(90deg, #120d00 25%, #231a05 50%, #120d00 75%);
           background-size: 200% 100%;
           animation: shimmer 1.4s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .ticker-inner, .live-dot, .img-skeleton { animation: none; }
         }
       `}</style>
 
@@ -340,19 +348,22 @@ export default function EventBannerPopup() {
               style={{
                 width: "100%",
                 maxWidth: 420,
-                background: "#050000",
-                border: "1px solid rgba(180,0,0,0.5)",
+                maxHeight: "100%",
+                background: "#0a0700",
+                border: "1px solid rgba(212,160,23,0.55)",
               }}
               variants={panelVariants}
               initial="hidden"
               animate="show"
               exit="exit"
               onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-label="Rap & Reggae Fiesta live in Dubai"
             >
               {/* scanlines */}
               <div className="popup-scanlines absolute inset-0 pointer-events-none z-[6]" />
 
-              {/* Fireworks — ember/crimson/gold palette */}
+              {/* Fireworks — gold / UAE palette */}
               <FireworksCanvas active={open && imgLoaded} />
 
               {/* corner brackets */}
@@ -361,10 +372,10 @@ export default function EventBannerPopup() {
               <div className="corner-accent" style={{ bottom: 0, left: 0, borderWidth: "0 0 2px 2px" }} />
               <div className="corner-accent" style={{ bottom: 0, right: 0, borderWidth: "0 2px 2px 0" }} />
 
-              {/* top accent line */}
+              {/* top accent line (UAE green → gold → red) */}
               <div
                 className="absolute top-0 left-0 right-0 h-px z-[56]"
-                style={{ background: "linear-gradient(to right, transparent, #cc0000, #ff4400, transparent)" }}
+                style={{ background: "linear-gradient(to right, transparent, #00a651, #ffd700, #e4002b, transparent)" }}
               />
 
               {/* close */}
@@ -373,74 +384,76 @@ export default function EventBannerPopup() {
               {/* ── Banner Image ── */}
               <div
                 className="relative w-full"
-                style={{ aspectRatio: "3/4", zIndex: 20 }}
+                style={{ aspectRatio: "1156/1600", zIndex: 20 }}
               >
-                {!imgLoaded && (
-                  <div className="img-skeleton absolute inset-0 z-10" />
-                )}
+                {!imgLoaded && <div className="img-skeleton absolute inset-0 z-10" />}
 
                 <Image
                   src={bannerImg}
-                  alt="අග්නි — Senkadagala Edition 2026, Alpha Events"
+                  alt="Rap & Reggae Fiesta with Check Point Band, live in Dubai — November 28, Sunday Holiday International Hotel, Bur Dubai. La Fiesta Event."
                   fill
+                  sizes="(max-width: 420px) 100vw, 420px"
                   className="object-cover object-top"
                   priority
                   onLoad={() => setImgLoaded(true)}
                   style={{ opacity: imgLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}
                 />
 
-                {/* ON SALE badge */}
+                {/* Early bird badge */}
                 <div
                   className="live-dot absolute top-3 left-3 flex items-center gap-2 px-3 py-1 z-30"
                   style={{
                     background: "rgba(0,0,0,0.85)",
-                    border: "1px solid #aa0000",
+                    border: "1px solid #d4a017",
                     backdropFilter: "blur(4px)",
                     opacity: imgLoaded ? 1 : 0,
                     transition: "opacity 0.4s ease 0.3s",
                   }}
                 >
-                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#cc0000", display: "inline-block" }} />
-                  <span style={{ fontFamily: "'Oswald', Impact, sans-serif", fontSize: 9, letterSpacing: "0.28em", color: "#cc0000", textTransform: "uppercase" }}>
-                    Tickets On Sale — Phase 01
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#ffd700", display: "inline-block" }} />
+                  <span style={{ fontFamily: "'Oswald', Impact, sans-serif", fontSize: 9, letterSpacing: "0.28em", color: "#ffd700", textTransform: "uppercase" }}>
+                    Early Bird On Sale — Until 15 Nov
                   </span>
                 </div>
 
                 {/* bottom fade */}
                 <div
                   className="absolute inset-x-0 bottom-0 h-10 z-[25]"
-                  style={{ background: "linear-gradient(to top, #050000, transparent)" }}
+                  style={{ background: "linear-gradient(to top, #0a0700, transparent)" }}
                 />
               </div>
 
               {/* ── CTA ── */}
               <motion.div
-                className="relative px-5 pt-3 pb-5 z-40 "
+                className="relative px-5 pt-3 pb-5 z-40"
                 variants={ctaVariants}
                 initial="hidden"
                 animate={imgLoaded ? "show" : "hidden"}
                 transition={{ delay: 0.3 }}
               >
                 <motion.a
-                  href="https://www.ticketsministry.com/concerts/agni-rap-concert/6a4348aeb7d9e"
+                  href={TICKET_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="popup-ticket-btn"
                   onClick={close}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                 >
-                  <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", display: "inline-block", flexShrink: 0 }} />
-                  Get Tickets — Sahas Uyana, Kandy
+                  <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#1a0f00", display: "inline-block", flexShrink: 0 }} />
+                  Get Tickets — Bur Dubai
                   <span>→</span>
                 </motion.a>
 
                 <div className="text-center mt-3">
                   <button
                     onClick={close}
+                    className="popup-later"
                     style={{
                       background: "none", border: "none", cursor: "pointer",
                       fontFamily: "'Oswald', sans-serif",
                       fontSize: 9, letterSpacing: "0.22em",
-                      color: "rgba(90,40,40,0.9)", textTransform: "uppercase",
+                      color: "rgba(212,160,23,0.7)", textTransform: "uppercase",
                     }}
                   >
                     Maybe later
@@ -449,11 +462,11 @@ export default function EventBannerPopup() {
               </motion.div>
 
               {/* ── ticker ── */}
-              <div style={{ background: "linear-gradient(90deg, #880000, #cc0000, #880000)", overflow: "hidden", padding: "5px 0", position: "relative", zIndex: 40 }}>
+              <div style={{ background: "linear-gradient(90deg, #00541f, #00732f, #00541f)", overflow: "hidden", padding: "5px 0", position: "relative", zIndex: 40 }}>
                 <div className="ticker-inner">
                   {Array.from({ length: 8 }, (_, i) => (
                     <span key={i} style={{ fontFamily: "Impact, Oswald, sans-serif", fontSize: 9, letterSpacing: "0.28em", color: "#fff", textTransform: "uppercase", marginRight: 28 }}>
-                      අග්නි — SENKADAGALA EDITION &nbsp;🔥&nbsp; SEPTEMBER 12, 2026 &nbsp;★&nbsp; SAHAS UYANA, KANDY &nbsp;★&nbsp; 4.00 PM – 12.00 AM &nbsp;★&nbsp; TICKETS ON SALE NOW &nbsp;★&nbsp;
+                      RAP &amp; REGGAE FIESTA &nbsp;🔥&nbsp; LIVE IN DUBAI &nbsp;★&nbsp; NOVEMBER 28 &nbsp;★&nbsp; SUNDAY HOLIDAY INTERNATIONAL HOTEL, BUR DUBAI &nbsp;★&nbsp; 9 PM ONWARDS &nbsp;★&nbsp; EARLY BIRD AED 100 / AED 150 UNTIL 15 NOV &nbsp;★&nbsp; INFO 050 101 0176 / 052 899 8273 &nbsp;★&nbsp;
                     </span>
                   ))}
                 </div>

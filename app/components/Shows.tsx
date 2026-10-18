@@ -10,7 +10,19 @@ type Show = {
   ticketUrl?: string;
 };
 
-const shows: Show[] = [];
+const shows: Show[] = [
+  {
+    date: "NOV 28",
+    day: "Sat",
+    event: "Rap & Reggae Fiesta with Check Point Band",
+    city: "Dubai",
+    venue: "Sunday Holiday International Hotel, Bur Dubai · 9 PM onwards",
+    country: "UAE",
+    status: "Early Bird",
+    sold: false,
+    ticketUrl: "https://ticketsministry.net/concerts/rap-and-reggae-fiesta/6ac4c1270ab1a",
+  },
+];
 
 export default function Shows() {
   return (
@@ -29,7 +41,7 @@ export default function Shows() {
             <h2 className="font-display text-5xl lg:text-7xl text-white">TOUR DATES</h2>
             {shows.length > 0 && (
               <p className="font-barlow text-gray-500 uppercase tracking-widest text-sm mt-2">
-                2026 World Tour
+                2026 Live Dates
               </p>
             )}
           </div>
